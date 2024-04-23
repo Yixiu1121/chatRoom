@@ -1,6 +1,6 @@
 import { UserOutlined } from "@ant-design/icons";
 import { Input } from "antd";
-const LogIn = ({ me, setName, onLogin }) => {
+const LogIn = ({ me, changeName, onLogin }) => {
   return (
     <Input.Search
       size="large"
@@ -8,7 +8,7 @@ const LogIn = ({ me, setName, onLogin }) => {
       prefix={<UserOutlined />}
       placeholder="Enter your name"
       value={me}
-      onChange={(e) => setName(e.target.value)}
+      onChange={(e) => changeName(e.target.value)}
       enterButton="Sign In"
       onSearch={(name) => onLogin(name)}
     />

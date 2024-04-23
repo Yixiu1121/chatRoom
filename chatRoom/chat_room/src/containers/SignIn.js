@@ -5,17 +5,20 @@ import { useChat } from "./hooks/useChat.js";
 const SignIn = () => {
   const { me, setMe, setSignedIn, displayStatus } = useChat();
   const handleLogin = (name) => {
-    if (!name)
+    console.log(name);
+    if (!name) {
       displayStatus({
         type: "error",
         msg: "Missing user name",
       });
-    else setSignedIn(true);
+    } else {
+      setSignedIn(true);
+    }
   };
   return (
     <>
       <Title />
-      <LogIn me={me} setName={setMe} onLogin={handleLogin} />
+      <LogIn me={me} changeName={setMe} onLogin={handleLogin} />
     </>
   );
 };
