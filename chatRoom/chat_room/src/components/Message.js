@@ -3,7 +3,7 @@ import React from "react";
 const StyledMessage = styled.div`
     display: flex;
     align-items: center;
-    flex-direction: ${({ isMe }) => (isMe ? "row-reverse" : "row")};
+    flex-direction: ${({ isMe }) => (isMe ? "row" : "row-reverse")};
     margin: 8px 10px;
 
     & p:first-child{
@@ -26,7 +26,7 @@ const Message = ({ me, messages }) => {
         <p style={{ color: "#ccc" }}>No messages...</p>
       ) : (
         messages.map(({ name, body }, i) => (
-          <StyledMessage isMe={name === me} key={i}>
+          <StyledMessage $isMe={name === me} key={i}>
             <p>
               {name} send : {body}
             </p>
