@@ -16,7 +16,7 @@ const ChatContext = createContext({
 
 const ChatProvider = (props) => {
   const [status, setStatus] = useState({});
-  const [me, setMe] = useState(savedMe || "");
+  const [me, setMe] = useState("");
   const [signedIn, setSignedIn] = useState(false);
   const [messages, setMessages] = useState([]);
   const sendData = async (data) => {
@@ -34,7 +34,7 @@ const ChatProvider = (props) => {
       type: "success",
       msg: "Message sent.",
     });
-    console.log(messages);
+    console.log("sendMessage", messages);
   };
   const startChat = (name, friend) => {
     sendData(["chat", { name: name, friend: friend }]);
@@ -78,7 +78,7 @@ const ChatProvider = (props) => {
         break;
       }
       case "output": {
-        console.log(task);
+        console.log("task", task);
         setMessages(() => [...messages, ...payload]);
         break;
       }
