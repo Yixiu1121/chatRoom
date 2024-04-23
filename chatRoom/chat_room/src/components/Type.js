@@ -1,7 +1,7 @@
 import { Input } from "antd";
 import { useState, useRef } from "react";
 
-const Type = ({ me, messages, displayStatus, sendMessage, activeKey }) => {
+const Type = ({ me, displayStatus, sendMessage, activeKey }) => {
   const [body, setBody] = useState("");
   const bodyRef = useRef(null);
   return (
@@ -20,7 +20,6 @@ const Type = ({ me, messages, displayStatus, sendMessage, activeKey }) => {
           });
           return;
         }
-        console.log(messages);
         sendMessage({ name: me, friend: activeKey, body: msg });
         setBody("");
       }}
