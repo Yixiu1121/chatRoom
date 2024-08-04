@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext, createContext } from "react";
-const client = new WebSocket("ws://localhost:8000");
 
 const LOCALSTORAGE_KEY = "save-me";
 const savedMe = localStorage.getItem(LOCALSTORAGE_KEY);
@@ -11,7 +10,7 @@ const ChatContext = createContext({
   sendMessage: () => {},
   startChat: () => {},
   clearMessages: () => {},
-  displayStatus: () => {},
+  displayStatus: (status) => {},
 });
 
 const ChatProvider = (props) => {
@@ -23,7 +22,7 @@ const ChatProvider = (props) => {
     client.send(JSON.stringify(data));
     console.log(client.readyState);
   };
-  const displayStatus = () => {
+  const displayStatus = (status) => {
     // display friend online or not
   };
 
@@ -58,7 +57,7 @@ const ChatProvider = (props) => {
       localStorage.setItem(LOCALSTORAGE_KEY, me);
     }
   }, [me, signedIn]);
-
+  const client = new WebSocket("ws://localhost:8000");
   client.onopen = () => {
     console.log("open connection");
   };

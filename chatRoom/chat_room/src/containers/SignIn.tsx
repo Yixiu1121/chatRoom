@@ -1,6 +1,6 @@
-import Title from "../components/Title";
-import LogIn from "../components/LogIn";
-import { useChat } from "./hooks/useChat.js";
+import Title from "../components/title/Title";
+import LogIn from "../components/login/LogIn";
+import { useChat } from "./hooks/useChat";
 
 const SignIn = () => {
   const { me, setMe, setSignedIn, displayStatus } = useChat();

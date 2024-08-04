@@ -1,26 +1,29 @@
-import Title from "../components/Title";
-import ChatModal from "../components/ChatModal";
-import Message from "../components/Message";
-import ChatBoxesWrapper from "../components/ChatBoxesWrapper";
-import Type from "../components/Type";
-import { ChatProvider, useChat } from "./hooks/useChat.js";
-import { message } from "antd";
-import { useState, useEffect, useRef } from "react";
+import Title from "../components/title/Title";
+// import ChatModal from "../components/chatModal/ChatModal.js";
+import Type from "../components/type/Type";
+import ChatBoxesWrapper from "../components/chatBoxesWrapper/ChatBoxesWrapper";
+import { useChat } from "./hooks/useChat";
+import { useState, useEffect } from "react";
 const ChatRoom = () => {
   const { me, messages, displayStatus, sendMessage, startChat } = useChat();
-  const [modalOpen, setModalOpen] = useState(false);
-  const [activeKey, setActiveKey] = useState("沒東西");
+  // const [modalOpen, setModalOpen] = useState(false);
   const [chatBoxes, setChatBoxes] = useState([]);
-  const [msgSent, setMsgSent] = useState(false);
-  const renderChat = (chat) => {
-    //產生 chat 的 DOM　nodes
-    <div>{chat}</div>;
-  };
-  const extractChat = (friend) => {
-    return renderChat(
-      messages.filter(({ name, body }) => name === friend || name === me)
+  const [activeKey, setActiveKey] = useState("");
+  const [filtedMessages, setFiltedMessages] = useState();
+  useEffect(() => {
+    extractChat(activeKey);
+  }, [messages, activeKey]);
+  const extractChat = (friendName) => {
+    console.log(messages);
+    let filtedMessages = messages.filter(
+      ({ name, friend, body }) =>
+        (name === friendName && friend === me) ||
+        (name === me && friend === friendName)
     );
+    console.log("filtedMessages", filtedMessages);
+    return setFiltedMessages(filtedMessages);
   };
+
   useEffect(() => {
     setChatBoxes([]);
   }, []);
@@ -37,8 +40,7 @@ const ChatRoom = () => {
         key: friend,
       },
     ]);
-    setMsgSent(true);
-    console.log("chat", chat);
+    console.log("friend", friend);
     return friend;
   };
   const removeChatBox = (targetKey, activeKey) => {
@@ -57,19 +59,19 @@ const ChatRoom = () => {
   return (
     <>
       <Title name={me} />
-      <ChatBoxesWrapper
-        messages={messages}
+      <ChatBoxesWrapper me={me} messages={messages} />
+      {/* <ChatBoxesWrapper
+        messages={filtedMessages}
         me={me}
         activeKey={activeKey}
         onChange={(key) => {
           setActiveKey(key);
+          extractChat(key);
           startChat(me, key);
         }}
         onEdit={(targetKey, action) => {
           //按下加之後
           if (action === "add") {
-            // const newTabIndex = useRef(0)
-            // const newActiveKey = `newTab${newTabIndex.current++}`;
             setActiveKey(activeKey);
             setModalOpen(true);
             console.log(chatBoxes);
@@ -78,19 +80,19 @@ const ChatRoom = () => {
           }
         }}
         items={chatBoxes}
-      />
-      <ChatModal
+      /> */}
+      {/* <ChatModal
         open={modalOpen}
         onCreate={({ name }) => {
-          //按下create
           setActiveKey(createChatBox(name));
+          createChatBox(name);
           startChat(me, name);
           setModalOpen(false);
         }}
         onCancel={() => {
-          setModalOpen(false); //按下cancel
+          setModalOpen(false);
         }}
-      />
+      /> */}
       <Type
         messages={messages}
         me={me}

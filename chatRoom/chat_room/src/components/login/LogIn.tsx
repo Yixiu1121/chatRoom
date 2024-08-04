@@ -1,6 +1,8 @@
 import { UserOutlined } from "@ant-design/icons";
 import { Input } from "antd";
-const LogIn = ({ me, changeName, onLogin }) => {
+import { LoginProps } from "./Login.type";
+
+const LogIn: React.FC<LoginProps> = ({ me, changeName, onLogin }) => {
   return (
     <Input.Search
       size="large"

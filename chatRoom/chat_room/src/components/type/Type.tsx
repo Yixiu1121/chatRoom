@@ -1,7 +1,13 @@
 import { Input } from "antd";
 import { useState, useRef } from "react";
+import { TypeProps } from "./Type.type";
 
-const Type = ({ me, displayStatus, sendMessage, activeKey }) => {
+const Type: React.FC<TypeProps> = ({
+  me,
+  displayStatus,
+  sendMessage,
+  activeKey,
+}) => {
   const [body, setBody] = useState("");
   const bodyRef = useRef(null);
   return (

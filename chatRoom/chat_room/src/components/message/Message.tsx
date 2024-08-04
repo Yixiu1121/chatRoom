@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import React from "react";
-const StyledMessage = styled.div`
+import { MessageProps, MessageStyleProps } from "./Message.type";
+
+const StyledMessage = styled.div<MessageStyleProps>`
     display: flex;
     align-items: center;
-    flex-direction: ${({ isMe }) => (isMe ? "row" : "row-reverse")};
+    flex-direction: ${({ $isMe }) => ($isMe ? "row" : "row-reverse")};
     margin: 8px 10px;
 
     & p:first-child{
@@ -19,7 +21,7 @@ const StyledMessage = styled.div`
     }
 `;
 
-const Message = ({ me, messages }) => {
+const Message: React.FC<MessageProps> = ({ me, messages }) => {
   return (
     <React.Fragment>
       {!messages ? (

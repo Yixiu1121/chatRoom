@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { TitleProps } from "./Title.type";
+
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
@@ -9,7 +11,7 @@ const Wrapper = styled.div`
     font-size: 3em;
   }
 `;
-const Title = ({ name }) => (
+const Title: React.FC<TitleProps> = ({ name }) => (
   <Wrapper>
     <h1>
       {name ? `${name}'s ` : "My"}
