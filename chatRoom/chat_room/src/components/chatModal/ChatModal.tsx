@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { Input, Modal } from "antd";
 import { ChatModalProps } from "./ChatModal.type";
 
-const ChatModal: React.FC<ChatModalProps> = ({ open, setNewFriendName }) => {
+const ChatModal: React.FC<ChatModalProps> = ({
+  open,
+  setChatRooms,
+  ChatRooms,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(open);
   const [val, setInputValue] = useState("");
 
@@ -11,10 +15,12 @@ const ChatModal: React.FC<ChatModalProps> = ({ open, setNewFriendName }) => {
       alert("please enter value or cancel the modal");
     }
     // check the val if exist
-    // else if(){
+    // else if (val in [room.label for room in ChatRooms]) {
     // }
     else {
-      setNewFriendName(val);
+      // call add_chatRoom api and have room_id
+      const newRoom = { label: val, roomId: "24678", key: "1" };
+      setChatRooms([...ChatRooms, newRoom]);
       setIsModalOpen(false);
     }
   };

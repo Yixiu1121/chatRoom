@@ -1,4 +1,7 @@
+import { TabProps } from "../tabs/Tabs.type";
+
 export interface ChatModalProps {
   open: boolean;
-  setNewFriendName: any;
+  setChatRooms: any;
+  ChatRooms: TabProps[];
 }

@@ -3,10 +3,11 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 
 import reportWebVitals from "./reportWebVitals";
-import { ChatProvider } from "./containers/hooks/useChat";
-import App from "./App";
 
-const rootElement = document.getElementById("root")!;
+import App from "./App";
+import { ChatProvider } from "./containers/hooks/useChat";
+
+const rootElement = document.getElementById("root");
 const root = ReactDOM.createRoot(rootElement);
 root.render(
   <ChatProvider>

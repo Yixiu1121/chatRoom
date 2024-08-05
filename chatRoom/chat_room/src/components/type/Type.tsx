@@ -1,15 +1,11 @@
 import { Input } from "antd";
 import { useState, useRef } from "react";
-import { TypeProps } from "./Type.type";
+import { useChat } from "../../containers/hooks/useChat";
 
-const Type: React.FC<TypeProps> = ({
-  me,
-  displayStatus,
-  sendMessage,
-  activeKey,
-}) => {
+const Type: React.FC = () => {
   const [body, setBody] = useState("");
   const bodyRef = useRef(null);
+  const { me, displayStatus, sendMessage } = useChat();
   return (
     <Input.Search
       ref={bodyRef.current}
@@ -26,7 +22,7 @@ const Type: React.FC<TypeProps> = ({
           });
           return;
         }
-        sendMessage({ name: me, friend: activeKey, body: msg });
+        sendMessage({ name: me, body: body });
         setBody("");
       }}
     ></Input.Search>

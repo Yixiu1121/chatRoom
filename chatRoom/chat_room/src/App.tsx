@@ -1,6 +1,6 @@
 import "./App.css";
 import styled from "styled-components";
-import ChatRoom from "./containers/ChatRoom";
+import ChatRoom from "./containers/chatRoom/ChatRoom";
 import SignIn from "./containers/SignIn";
 import { useChat } from "./containers/hooks/useChat";
 import { useEffect } from "react";

@@ -1,18 +1,23 @@
 import { UserOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 import { LoginProps } from "./Login.type";
+import { useState } from "react";
 
 const LogIn: React.FC<LoginProps> = ({ me, changeName, onLogin }) => {
+  const [name, setName] = useState("");
   return (
     <Input.Search
       size="large"
       style={{ width: 300, margin: 50 }}
       prefix={<UserOutlined />}
       placeholder="Enter your name"
-      value={me}
-      onChange={(e) => changeName(e.target.value)}
+      value={name}
+      onChange={(e) => setName(e.target.value)}
       enterButton="Sign In"
-      onSearch={(name) => onLogin(name)}
+      onSearch={() => {
+        changeName(name);
+        onLogin(name);
+      }}
     />
   );
 };

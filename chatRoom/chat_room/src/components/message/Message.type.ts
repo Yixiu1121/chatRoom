@@ -1,8 +1,8 @@
 export interface MessageProps {
   me: string;
-  messages: Messages[];
+  messages: Message[];
 }
-export interface Messages {
+export interface Message {
   name: string;
   body: string;
 }
