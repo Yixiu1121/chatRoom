@@ -9,3 +9,8 @@ export interface Message {
 export interface MessageStyleProps {
   $isMe: boolean;
 }
+export interface RoomChats {
+  room_name: string;
+  room_id: string;
+  chats: Message[];
+}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Input, Modal } from "antd";
 import { ChatModalProps } from "./ChatModal.type";
+import { useChat } from "../../containers/hooks/useChat";
 
 const ChatModal: React.FC<ChatModalProps> = ({
   open,
@@ -9,7 +10,7 @@ const ChatModal: React.FC<ChatModalProps> = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(open);
   const [val, setInputValue] = useState("");
-
+  const { addNewChat } = useChat();
   const handleOk = () => {
     if (!val) {
       alert("please enter value or cancel the modal");
@@ -18,9 +19,20 @@ const ChatModal: React.FC<ChatModalProps> = ({
     // else if (val in [room.label for room in ChatRooms]) {
     // }
     else {
-      // call add_chatRoom api and have room_id
-      const newRoom = { label: val, roomId: "24678", key: "1" };
+      // TODO call add_chatRoom api and have room_id
+      // TODO create chat object to messages
+      const newRoom = {
+        label: val,
+        roomId: "24678",
+        key: ChatRooms.length + 1,
+      };
       setChatRooms([...ChatRooms, newRoom]);
+      const messageData = {
+        room_name: val,
+        room_id: "24678",
+        chats: [],
+      };
+      addNewChat(messageData);
       setIsModalOpen(false);
     }
   };

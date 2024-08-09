@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect } from "react";
 import { MessageProps, MessageStyleProps } from "./Message.type";
 
 const StyledMessage = styled.div<MessageStyleProps>`
@@ -22,9 +22,12 @@ const StyledMessage = styled.div<MessageStyleProps>`
 `;
 
 const MessageComponent: React.FC<MessageProps> = ({ me, messages }) => {
+  useEffect(() => {
+    console.log("messages", messages);
+  }, [messages]);
   return (
     <div>
-      {!messages ? (
+      {messages.length === 0 ? (
         <p style={{ color: "#ccc" }}>No messages...</p>
       ) : (
         messages.map(({ name, body }, i) => (

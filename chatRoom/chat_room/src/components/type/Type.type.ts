@@ -1,7 +1,4 @@
 export interface TypeProps {
-  me: string;
-  displayStatus: (arg: DisplayStatus) => {};
-  sendMessage: (arg: SendMessageProps) => {};
   activeKey: string;
 }
 export interface SendMessageProps {

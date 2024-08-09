@@ -2,7 +2,7 @@ import { Input } from "antd";
 import { useState, useRef } from "react";
 import { useChat } from "../../containers/hooks/useChat";
 
-const Type: React.FC = () => {
+const Type: React.FC<any> = ({ roomId }) => {
   const [body, setBody] = useState("");
   const bodyRef = useRef(null);
   const { me, displayStatus, sendMessage } = useChat();
@@ -22,7 +22,7 @@ const Type: React.FC = () => {
           });
           return;
         }
-        sendMessage({ name: me, body: body });
+        sendMessage({ name: me, body: body }, roomId);
         setBody("");
       }}
     ></Input.Search>

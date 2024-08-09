@@ -3,8 +3,8 @@ import LogIn from "../components/login/LogIn";
 import { useChat } from "./hooks/useChat";
 
 const SignIn = () => {
-  const { me, setMe, setSignedIn, displayStatus } = useChat();
-  const handleLogin = (name) => {
+  const { me, displayStatus, setSignedIn, handleSetMyName } = useChat();
+  const handleLogin = (name: string) => {
     console.log(name);
     if (!name) {
       displayStatus({
@@ -17,8 +17,8 @@ const SignIn = () => {
   };
   return (
     <>
-      <Title />
-      <LogIn me={me} changeName={setMe} onLogin={handleLogin} />
+      <Title name={""} />
+      <LogIn me={me} changeName={handleSetMyName} onLogin={handleLogin} />
     </>
   );
 };

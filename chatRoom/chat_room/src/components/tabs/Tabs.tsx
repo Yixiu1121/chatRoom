@@ -1,42 +1,21 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Tabs } from "antd";
-import { TabComponentProps, TabProps } from "./Tabs.type";
+import { TabComponentProps } from "./Tabs.type";
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
-// const initialItems = [
-//   { label: "Tab 1", children: "Content of Tab 1", key: "1" },
-//   { label: "Tab 2", children: "Content of Tab 2", key: "2" },
-//   {
-//     label: "Tab 3",
-//     children: "Content of Tab 3",
-//     key: "3",
-//     closable: false,
-//   },
-// ];
-
 const TabComponents: React.FC<TabComponentProps> = ({
   setOpenModal,
-  initialItems,
-  addItems,
+  chatRooms,
+  activeKey,
+  setActiveKey,
 }) => {
-  const [activeKey, setActiveKey] = useState(initialItems[0].key);
-  const [items, setItems] = useState(initialItems);
-  const newTabIndex = useRef(0);
-
+  const [items, setItems] = useState(chatRooms);
   useEffect(() => {
-    add(addItems);
-  }, [addItems]);
+    setItems(chatRooms);
+  }, [chatRooms]);
 
   const onChange = (newActiveKey: string) => {
-    setActiveKey(newActiveKey);
-  };
-
-  const add = (item: TabProps) => {
-    const newActiveKey = `newTab${newTabIndex.current++}`;
-    const newPanes = [...items];
-    newPanes.push(item);
-    setItems(newPanes);
     setActiveKey(newActiveKey);
   };
 
@@ -44,7 +23,7 @@ const TabComponents: React.FC<TabComponentProps> = ({
     let newActiveKey = activeKey;
     let lastIndex = -1;
     items.forEach((item, i) => {
-      if (item.key === targetKey) {
+      if (item.label === targetKey) {
         lastIndex = i - 1;
       }
     });
@@ -66,7 +45,6 @@ const TabComponents: React.FC<TabComponentProps> = ({
   ) => {
     if (action === "add") {
       setOpenModal(true);
-      // add(addItems);
     } else {
       remove(targetKey);
     }

@@ -4,39 +4,36 @@ import { Wrapper, MessageStyle, TypeStyle } from "./ChatBoxesWrapper.style";
 import ChatModal from "../chatModal/ChatModal";
 import { ChatBoxesProps } from "./ChatBoxesWrapper.type";
 import { useChat } from "../../containers/hooks/useChat";
+import { RoomChats } from "../message/Message.type";
 
-// call get_chatRoom api
-const initialItems = {
-  label: "test room",
-  roomId: "12345",
-  key: "1",
-};
-// flow
-// 1. 先打開modal
-// 2. 輸入資料
-// 3. 確認後新增chatRoom
-// 4. activeKey 切到新的chatRoom
+//TODO call get_chatRoom api
+const initialItems = [
+  {
+    label: "test room",
+    roomId: "123456",
+    key: "1",
+  },
+  {
+    label: "room 2",
+    roomId: "12345",
+    key: "2",
+  },
+];
 
 const ChatBoxesWrapper: React.FC<ChatBoxesProps> = ({ me }) => {
   const [openModal, setOpenModal] = useState(false);
-  const [ChatRooms, setChatRooms] = useState([
-    initialItems,
-    {
-      label: "room 2",
-      roomId: "12345",
-      key: "2",
-    },
-  ]);
-  const [activeKey, setActiveKey] = useState(initialItems.key);
-  const { messages } = useChat();
-  // useEffect(() => {
-  // get room data api
-  //   const room_data = [{ name: "peter", body: "hi" }];
-  //   setMessages(room_data);
-  // }, [activeKey]);
+  const [activeKey, setActiveKey] = useState<string>("1");
+  const [ChatRooms, setChatRooms] = useState(initialItems);
+  const [filteredChats, setFilteredChats] = useState([]);
+  const { allChats } = useChat();
   useEffect(() => {
-    console.log("ChatRooms", ChatRooms);
-  }, [ChatRooms]);
+    const roomId = ChatRooms.find((room) => room.key === activeKey)?.roomId;
+    if (allChats.length > 0) {
+      const chat = allChats.find((chat: RoomChats) => chat.room_id === roomId);
+      setFilteredChats(chat?.["chats"] || []);
+    }
+  }, [allChats, activeKey]);
+
   return (
     <Wrapper>
       <TabComponents
@@ -45,7 +42,7 @@ const ChatBoxesWrapper: React.FC<ChatBoxesProps> = ({ me }) => {
         setOpenModal={setOpenModal}
         chatRooms={ChatRooms}
       />
-      <MessageStyle me={me} messages={messages} />
+      <MessageStyle me={me} messages={filteredChats} />
       {openModal && (
         <ChatModal
           open={openModal}
@@ -53,7 +50,9 @@ const ChatBoxesWrapper: React.FC<ChatBoxesProps> = ({ me }) => {
           ChatRooms={ChatRooms}
         />
       )}
-      <TypeStyle />
+      <TypeStyle
+        roomId={ChatRooms.find((room) => room.key === activeKey)?.roomId}
+      />
     </Wrapper>
   );
 };

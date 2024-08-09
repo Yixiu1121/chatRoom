@@ -1,10 +1,11 @@
 export interface TabProps {
   label: string;
-  children: [];
+  roomId: string;
   key: string;
 }
 export interface TabComponentProps {
   setOpenModal: any;
-  initialItems: TabProps[];
-  addItems: TabProps;
+  chatRooms: TabProps[];
+  activeKey: string;
+  setActiveKey: (key: string) => void;
 }
